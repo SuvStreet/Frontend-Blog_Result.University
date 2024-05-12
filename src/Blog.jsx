@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 
-import { Header } from './components'
+import { Header, Footer } from './components'
 
 import s from 'styled-components'
 
@@ -24,18 +24,6 @@ const Content = s.div`
 const H2 = s.h2`
 	text-align: center;
 `
-
-
-
-const Footer = () => {
-	return (
-		<>
-			<div>Footer</div>
-		</>
-	)
-}
-
-
 
 export const Blog = () => {
 	return (
