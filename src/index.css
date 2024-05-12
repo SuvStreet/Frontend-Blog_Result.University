@@ -1,23 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;700&display=swap');
+
+/* .roboto-regular {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.roboto-bold {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	font-style: normal;
+} */
+
+* {
+	box-sizing: border-box;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+	font-style: normal;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	color: rgba(255, 255, 255, 0.87);
+	/* background-color: #242424; */
+	background-color: #303030;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
+	margin: 0;
+	display: flex;
+	place-items: center;
 	justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
+	min-width: 320px;
+	min-height: 100vh;
 }

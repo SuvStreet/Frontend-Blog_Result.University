@@ -1,24 +1,31 @@
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faPhone } from '@fortawesome/free-solid-svg-icons'
-// import { faSun } from '@fortawesome/free-regular-svg-icons'
-// import { faReact } from '@fortawesome/free-brands-svg-icons'
 import { Routes, Route } from 'react-router-dom'
+
+import { Header } from './components'
+
 import s from 'styled-components'
+
+const AppColumn = s.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	max-width: 1000px;
+	width: 100%;
+	min-height: 100dvh;
+	margin: 0 auto;
+	background-color: #242424;
+	// color: black;
+`
 
 const Content = s.div`
 	padding: 120px 0;
+	// min-height: 500vh;
+	width: 1000px;
 `
 const H2 = s.h2`
 	text-align: center;
 `
 
-const Header = () => {
-	return (
-		<>
-			<div>Header</div>
-		</>
-	)
-}
+
 
 const Footer = () => {
 	return (
@@ -28,9 +35,11 @@ const Footer = () => {
 	)
 }
 
+
+
 export const Blog = () => {
 	return (
-		<>
+		<AppColumn>
 			<Header />
 			<Content>
 				<H2>Page Content</H2>
@@ -45,6 +54,6 @@ export const Blog = () => {
 				</Routes>
 			</Content>
 			<Footer />
-		</>
+		</AppColumn>
 	)
 }
