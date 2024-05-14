@@ -33,13 +33,14 @@ const HeaderContainer = ({ className }) => {
 export const Header = s(HeaderContainer)`
 	display: flex;
 	justify-content: space-between;
-	position: fixed;
+	position: sticky;
 	top: 0;
-	width: 1000px;
+	max-width: 1000px;
+	width: 100%;
 	height: 120px;
 	padding: 20px 40px;
 	background-color: #242424;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `
 
 HeaderContainer.propTypes = {

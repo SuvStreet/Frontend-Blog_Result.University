@@ -9,6 +9,8 @@ const IconContainer = ({ className, iconCode }) => {
 }
 
 export const Icon = s(IconContainer)`
+	display: flex;
+	align-items: center;
 	font-size: ${(props) => props.size || '32px'};
 	margin: ${(props) => props.margin || '0'};
 `
