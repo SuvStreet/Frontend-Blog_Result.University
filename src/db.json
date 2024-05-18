@@ -4,13 +4,13 @@
       "id": "001",
       "login": "admin",
       "password": "admin",
-      "registed_at": "2025-01-01 00:00:00",
+      "registered_at": "2025-01-01 00:00",
       "role_id": 0
     },
     {
       "login": "admin1",
       "password": "12345",
-      "registed_at": "2033-12-21 11:33",
+      "registered_at": "2033-12-21 11:33",
       "role_id": 2,
       "id": "syqJMhL"
     }

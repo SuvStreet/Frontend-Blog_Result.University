@@ -20,13 +20,6 @@ const RightAligned = s.div`
 	justify-content: flex-end;
 	align-items: center;
 `
-
-const StyledIcon = s.div`
-	&:hover {
-		cursor: pointer;
-	}
-`
-
 const UserName = s.div`
 	font-size: 20px;
 	font-weight: 700;
@@ -49,21 +42,27 @@ const ControlPanelContainer = ({ className }) => {
 				) : (
 					<>
 						<UserName>{login}</UserName>
-						<StyledIcon onClick={() => dispatch(logout(session))}>
-							<Icon size='2rem' iconCode={faRightFromBracket} margin='0 0 0 10px' />
-						</StyledIcon>
+						<Icon
+							fontSize='2rem'
+							iconCode={faRightFromBracket}
+							margin='0 0 0 10px'
+							onClick={() => dispatch(logout(session))}
+						/>
 					</>
 				)}
 			</RightAligned>
 			<RightAligned>
-				<StyledIcon onClick={() => navigate(-1)}>
-					<Icon size='2.5rem' iconCode={faAngleLeft} margin='0 10px 0 0' />
-				</StyledIcon>
+				<Icon
+					fontSize='2.5rem'
+					iconCode={faAngleLeft}
+					margin='0 10px 0 0'
+					onClick={() => navigate(-1)}
+				/>
 				<Link to='/post'>
-					<Icon size='2rem' iconCode={faFileSignature} margin='0 10px 0 0' />
+					<Icon fontSize='2rem' iconCode={faFileSignature} margin='0 10px 0 0' />
 				</Link>
 				<Link to='/users'>
-					<Icon size='2rem' iconCode={faUsers} margin='0 10px 0 0' />
+					<Icon fontSize='2rem' iconCode={faUsers} margin='0 10px 0 0' />
 				</Link>
 			</RightAligned>
 		</div>

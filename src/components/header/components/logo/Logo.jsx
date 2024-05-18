@@ -21,7 +21,7 @@ const SmallText = s.div`
 const LogoContainer = ({ className }) => {
 	return (
 		<Link to='/' className={className} >
-			<Icon size='4rem' margin='0 10px 0 0' iconCode={faLaptopCode} />
+			<Icon fontSize='4rem' margin='0 10px 0 0' iconCode={faLaptopCode} />
 			<div>
 				<LargeText>Блог</LargeText>
 				<SmallText>Веб-разработчика</SmallText>
