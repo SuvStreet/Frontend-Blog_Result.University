@@ -7,11 +7,16 @@ import { server } from '../bff'
 export const useServerRequest = () => {
 	const session = useSelector(selectUserSession)
 
-	return useCallback((operation, ...params) => {
-		const request = ['authorize', 'register'].includes(operation)
-			? params
-			: [session, ...params]
+	return useCallback(
+		(operation, ...params) => {
+			const request = ['authorize', 'register', 'fetchPost', 'fetchUser'].includes(
+				operation,
+			)
+				? params
+				: [session, ...params]
 
-		return server[operation](...request)
-	}, [session])
+			return server[operation](...request)
+		},
+		[session],
+	)
 }

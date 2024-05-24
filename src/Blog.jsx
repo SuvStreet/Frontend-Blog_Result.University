@@ -1,7 +1,12 @@
+import { useLayoutEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { Header, Footer } from './components'
-import { Authorization, Registration, Users } from './pages'
+import { Header, Footer, Loader } from './components'
+import { Authorization, Registration, Users, Post } from './pages'
+import { useServerRequest } from './hooks'
+import { setUser } from './actions'
+import { selectUserSession } from './selectors'
 
 import s from 'styled-components'
 
@@ -24,7 +29,27 @@ const Page = s.div`
 `
 
 export const Blog = () => {
-	return (
+	const dispatch = useDispatch()
+	const session = useSelector(selectUserSession)
+	const [loading, setLoading] = useState(false)
+	const requestServer = useServerRequest()
+	const currentUserData = localStorage.getItem('currentUserData')
+
+	useLayoutEffect(() => {
+		if (currentUserData !== null && session === null) {
+
+			setLoading(true)
+			requestServer('fetchUser', JSON.parse(currentUserData))
+				.then(({ res }) => {
+					dispatch(setUser(res))
+				})
+				.finally(() => setLoading(false))
+		}
+	}, [])
+
+	return loading ? (
+		<Loader height={'100dvh'} />
+	) : (
 		<AppColumn>
 			<Header />
 			<Page>
@@ -34,7 +59,7 @@ export const Blog = () => {
 					<Route path='/register' element={<Registration />} />
 					<Route path='/users' element={<Users />} />
 					<Route path='/post' element={<div>Новая Статья</div>} />
-					<Route path='/post/:postId' element={<div>Статья</div>} />
+					<Route path='/post/:id' element={<Post />} />
 					<Route path='*' element={<div>Ошибка</div>} />
 				</Routes>
 			</Page>

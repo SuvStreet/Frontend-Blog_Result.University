@@ -1,7 +1,7 @@
 import { getUser, addUser } from '../api'
 import { sessions } from '../sessions'
 
-export const register = async(regLogin, regPassword) => {
+export const register = async (regLogin, regPassword) => {
 	const existedUser = await getUser(regLogin)
 
 	if (existedUser) {
@@ -13,13 +13,19 @@ export const register = async(regLogin, regPassword) => {
 
 	const user = await addUser(regLogin, regPassword)
 
+	const createdUser = {
+		id: user.id,
+		login: user.login,
+		roleId: user.role_id,
+	}
+
 	return {
 		error: null,
 		res: {
 			id: user.id,
 			login: user.login,
 			roleId: user.role_id,
-			session: sessions.create(user),
+			session: sessions.create(createdUser),
 		},
 	}
 }

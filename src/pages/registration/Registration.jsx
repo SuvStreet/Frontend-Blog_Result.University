@@ -63,6 +63,7 @@ const RegistrationContainer = ({ className }) => {
 			}
 
 			dispatch(setUser(res))
+			localStorage.setItem('currentUserData', JSON.stringify(res.session))
 			navigate('/')
 		})
 	}

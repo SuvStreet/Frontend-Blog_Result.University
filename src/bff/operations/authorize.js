@@ -1,7 +1,7 @@
 import { getUser } from '../api'
 import { sessions } from '../sessions'
 
-export const authorize =  async (authLogin, authPassword) => {
+export const authorize = async (authLogin, authPassword) => {
 	const user = await getUser(authLogin)
 
 	if (!user) {
@@ -20,13 +20,15 @@ export const authorize =  async (authLogin, authPassword) => {
 		}
 	}
 
+	const currentUser = { id, login, roleId }
+
 	return {
 		error: null,
 		res: {
 			id,
 			login,
 			roleId,
-			session: sessions.create(user),
+			session: sessions.create(currentUser),
 		},
 	}
 }

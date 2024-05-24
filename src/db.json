@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "001",
+      "id": "dfgJMh",
       "login": "admin",
       "password": "admin",
       "registered_at": "2025-01-01 00:00",
@@ -11,8 +11,22 @@
       "login": "admin1",
       "password": "12345",
       "registered_at": "2033-12-21 11:33",
-      "role_id": 2,
+      "role_id": 1,
       "id": "syqJMhL"
+    },
+    {
+      "login": "admin23",
+      "password": "12345",
+      "registered_at": "2056-09-04 17:39",
+      "role_id": 2,
+      "id": "tzGFxXm"
+    },
+    {
+      "login": "suvstreet",
+      "password": "12345",
+      "registered_at": "2056-07-15 11:49",
+      "role_id": 2,
+      "id": "c_vso5A"
     }
   ],
   "roles": [
@@ -112,5 +126,57 @@
       "published_at": "2015-05-21 12:25:14"
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "001",
+      "published_at": "2033-07-09 09:28",
+      "content": "erfref",
+      "id": 5
+    },
+    {
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "001",
+      "published_at": "2049-10-03 12:55",
+      "content": "Мой первый комментарий!",
+      "id": 6
+    },
+    {
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "001",
+      "published_at": "2062-06-23 14:38",
+      "content": "Мой ыторой комментарий!",
+      "id": 7
+    },
+    {
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "001",
+      "published_at": "2034-01-27 13:22",
+      "content": "Мой третий комментарий!",
+      "id": 8
+    },
+    {
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "001",
+      "published_at": "2058-01-04 03:54",
+      "content": "Мой четвёртый комментарий!",
+      "id": 9
+    }
+  ],
+  "sessions": [
+    {
+      "hash": "0.75453863427452505518999714695382863283157348632813",
+      "user": {
+        "id": "dfgJMh",
+        "login": "admin",
+        "role_id": 0
+      },
+      "id": 1
+    }
+  ]
 }

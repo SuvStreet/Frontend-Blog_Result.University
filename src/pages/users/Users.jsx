@@ -80,7 +80,9 @@ export const Users = s(UsersContainer)`
 	margin: 0 auto;
 	width: 570px;
 
-
+	& h2 {
+		margin-top: 0;
+	}
 `
 
 UsersContainer.propTypes = {

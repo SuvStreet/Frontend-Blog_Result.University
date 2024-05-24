@@ -16,7 +16,7 @@ export const Icon = s(IconContainer)`
 	color: ${({ disabled }) => disabled && '#5e5e5e'};
 
 	&:hover {
-		cursor: pointer;
+		cursor: ${({ cursor }) => cursor || 'pointer'};
 	}
 `
 
