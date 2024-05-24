@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Header, Footer, Loader } from './components'
+import { Header, Footer, Loader, Modal } from './components'
 import { Authorization, Registration, Users, Post } from './pages'
 import { useServerRequest } from './hooks'
 import { setUser } from './actions'
@@ -64,6 +64,7 @@ export const Blog = () => {
 				</Routes>
 			</Page>
 			<Footer />
+			<Modal />
 		</AppColumn>
 	)
 }
