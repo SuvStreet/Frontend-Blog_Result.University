@@ -166,6 +166,46 @@
       "published_at": "2058-05-18 13:59",
       "content": "Мой первый комментарий!",
       "id": 11
+    },
+		{
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "002",
+      "published_at": "2049-10-03 12:55",
+      "content": "Мой первый комментарий!",
+      "id": 25
+    },
+    {
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "002",
+      "published_at": "2062-06-23 14:38",
+      "content": "Мой ыторой комментарий!",
+      "id": 55
+    },
+    {
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "003",
+      "published_at": "2034-01-27 13:22",
+      "content": "Мой третий комментарий!",
+      "id": 12
+    },
+    {
+      "author_id": "dfgJMh",
+      "author_login": "admin",
+      "post_id": "005",
+      "published_at": "2058-01-04 03:54",
+      "content": "Мой четвёртый комментарий!",
+      "id": 45
+    },
+    {
+      "author_id": "c_vso5A",
+      "author_login": "suvstreet",
+      "post_id": "003",
+      "published_at": "2058-05-18 13:59",
+      "content": "Мой первый комментарий!",
+      "id": 19
     }
   ],
   "sessions": [

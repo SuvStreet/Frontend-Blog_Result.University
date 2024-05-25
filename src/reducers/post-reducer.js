@@ -29,6 +29,9 @@ export const postReducer = (state = initialPostState, action) => {
 				comments: state.comments.filter((comment) => comment.id !== action.payload),
 			}
 
+		case ACTION_TYPE.DELETE_POST:
+			return initialPostState
+
 		default:
 			return state
 	}
