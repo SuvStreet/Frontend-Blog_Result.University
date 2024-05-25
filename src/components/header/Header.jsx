@@ -41,6 +41,7 @@ export const Header = s(HeaderContainer)`
 	padding: 20px 40px;
 	background-color: #242424;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	z-index: 10;
 `
 
 HeaderContainer.propTypes = {

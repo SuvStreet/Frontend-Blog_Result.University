@@ -17,6 +17,18 @@ export const postReducer = (state = initialPostState, action) => {
 				...action.payload,
 			}
 
+		case ACTION_TYPE.SET_NEW_COMMENT:
+			return {
+				...state,
+				comments: [...state.comments, action.payload],
+			}
+
+		case ACTION_TYPE.DELETE_COMMENT:
+			return {
+				...state,
+				comments: state.comments.filter((comment) => comment.id !== action.payload),
+			}
+
 		default:
 			return state
 	}

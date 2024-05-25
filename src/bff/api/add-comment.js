@@ -1,3 +1,4 @@
+import { transformComment } from '../transformers'
 import { generateDate } from '../utils'
 
 export const addComment = (userId, userLogin, postId, content) =>
@@ -14,3 +15,5 @@ export const addComment = (userId, userLogin, postId, content) =>
 			content,
 		}),
 	})
+		.then((loadedComment) => loadedComment.json())
+		.then((loadedComment) => loadedComment && transformComment(loadedComment))

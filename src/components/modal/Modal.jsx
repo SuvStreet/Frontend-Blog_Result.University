@@ -41,6 +41,7 @@ const ModalContainer = ({ className }) => {
 export const Modal = s(ModalContainer)`
 	position: fixed;
 	top: 0;
+	left: 0;
 	z-index:20;
 
 	& .overlay {
@@ -59,7 +60,7 @@ export const Modal = s(ModalContainer)`
 		justify-content: center;
 		align-items: center;
 		padding: 20px;
-		width: 50%;
+		max-width: 400px;
 		background-color: #242424;
 		border: 1px solid #5e5e5e;
 		border-radius: 10px;

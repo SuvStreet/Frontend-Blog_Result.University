@@ -1,12 +1,12 @@
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Header, Footer, Loader, Modal } from './components'
 import { Authorization, Registration, Users, Post } from './pages'
 import { useServerRequest } from './hooks'
-import { setUser } from './actions'
-import { selectUserSession } from './selectors'
+import { setLoading, setUser } from './actions'
+import { selectLoading, selectUserSession } from './selectors'
 
 import s from 'styled-components'
 
@@ -31,21 +31,21 @@ const Page = s.div`
 export const Blog = () => {
 	const dispatch = useDispatch()
 	const session = useSelector(selectUserSession)
-	const [loading, setLoading] = useState(false)
+	const loading = useSelector(selectLoading)
 	const requestServer = useServerRequest()
 	const currentUserData = localStorage.getItem('currentUserData')
 
 	useLayoutEffect(() => {
 		if (currentUserData !== null && session === null) {
 
-			setLoading(true)
+			dispatch(setLoading, true)
 			requestServer('fetchUser', JSON.parse(currentUserData))
 				.then(({ res }) => {
 					dispatch(setUser(res))
 				})
-				.finally(() => setLoading(false))
+				.finally(() => dispatch(setLoading, false))
 		}
-	}, [])
+	}, [currentUserData, dispatch, requestServer, session])
 
 	return loading ? (
 		<Loader height={'100dvh'} />
@@ -60,6 +60,7 @@ export const Blog = () => {
 					<Route path='/users' element={<Users />} />
 					<Route path='/post' element={<div>Новая Статья</div>} />
 					<Route path='/post/:id' element={<Post />} />
+					<Route path='/post/:id/edit' element={<Post />} />
 					<Route path='*' element={<div>Ошибка</div>} />
 				</Routes>
 			</Page>

@@ -46,7 +46,6 @@ const CommentsContainer = ({ className, comments, postId }) => {
 				{comments.map(({ id, author, content, publishedAt }) => (
 					<Comment
 						key={id}
-						postId={postId}
 						commentId={id}
 						author={author}
 						content={content}

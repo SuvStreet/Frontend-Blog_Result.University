@@ -11,7 +11,6 @@ import s from 'styled-components'
 
 const CommentContainer = ({
 	className,
-	postId,
 	commentId,
 	author,
 	content,
@@ -25,7 +24,7 @@ const CommentContainer = ({
 			openModal({
 				textModal: 'Вы действительно хотите удалить комментарий?',
 				onConfirm: () => {
-					dispatch(removeCommentAsync(requestServer, postId, commentId))
+					dispatch(removeCommentAsync(requestServer, commentId))
 					dispatch(CLOSE_MODAL)
 				},
 				onCancel: () => dispatch(CLOSE_MODAL),
@@ -102,7 +101,6 @@ export const Comment = s(CommentContainer)`
 
 CommentContainer.propTypes = {
 	className: PropsTypes.string,
-	postId: PropsTypes.string,
 	commentId: PropsTypes.number,
 	author: PropsTypes.string,
 	content: PropsTypes.string,
