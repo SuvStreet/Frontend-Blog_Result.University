@@ -31,23 +31,23 @@ const Page = s.div`
 export const Blog = () => {
 	const dispatch = useDispatch()
 	const session = useSelector(selectUserSession)
-	const loading = useSelector(selectLoading)
+	const isLoading = useSelector(selectLoading)
 	const requestServer = useServerRequest()
-	const currentUserData = localStorage.getItem('currentUserData')
 
 	useLayoutEffect(() => {
-		if (currentUserData !== null && session === null) {
+		const currentUserData = localStorage.getItem('currentUserData')
 
-			dispatch(setLoading, true)
+		if (currentUserData && !session) {
+			dispatch(setLoading(true))
 			requestServer('fetchUser', JSON.parse(currentUserData))
 				.then(({ res }) => {
 					dispatch(setUser(res))
 				})
-				.finally(() => dispatch(setLoading, false))
+				.finally(() => dispatch(setLoading(false)))
 		}
-	}, [currentUserData, dispatch, requestServer, session])
+	}, [dispatch, requestServer, session])
 
-	return loading ? (
+	return isLoading ? (
 		<Loader height={'100dvh'} />
 	) : (
 		<AppColumn>
@@ -58,7 +58,7 @@ export const Blog = () => {
 					<Route path='/login' element={<Authorization />} />
 					<Route path='/register' element={<Registration />} />
 					<Route path='/users' element={<Users />} />
-					<Route path='/post' element={<div>Новая Статья</div>} />
+					<Route path='/post' element={<Post />} />
 					<Route path='/post/:id' element={<Post />} />
 					<Route path='/post/:id/edit' element={<Post />} />
 					<Route path='*' element={<div>Ошибка</div>} />

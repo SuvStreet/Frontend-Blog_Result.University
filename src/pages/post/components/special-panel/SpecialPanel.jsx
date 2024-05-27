@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
@@ -6,16 +6,20 @@ import PropTypes from 'prop-types'
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../actions'
 import { Icon } from '../../../../components'
 import { useServerRequest } from '../../../../hooks'
+import { selectUserRole } from '../../../../selectors'
+import { ROLE } from '../../../../constants'
 
 import { faCalendarDays, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
 
 const SpecialPanelContainer = ({ className, post: { id, publishedAt }, editButton }) => {
 	const dispatch = useDispatch()
+	const userRole =useSelector(selectUserRole)
 	const navigate = useNavigate()
 	const requestServer = useServerRequest()
 
 	const onPostRemove = () => {
+		if(userRole !== ROLE.ADMIN) return
 		dispatch(
 			openModal({
 				textModal: 'Вы действительно хотите удалить статью?',
@@ -31,17 +35,17 @@ const SpecialPanelContainer = ({ className, post: { id, publishedAt }, editButto
 	return (
 		<div className={className}>
 			<div className='published-at'>
-				<Icon
+				{publishedAt && <Icon
 					fontSize='1.2rem'
 					iconCode={faCalendarDays}
 					margin='0 10px 0 0'
 					cursor='default'
-				/>
+				/>}
 				{publishedAt}
 			</div>
 			<div className='buttons'>
 				{editButton}
-				<Icon fontSize='1.3rem' iconCode={faTrashCan} onClick={() => onPostRemove()} />
+				{publishedAt && <Icon fontSize='1.3rem' iconCode={faTrashCan} margin='0 0 0 10px' onClick={() => onPostRemove()} />}
 			</div>
 		</div>
 	)

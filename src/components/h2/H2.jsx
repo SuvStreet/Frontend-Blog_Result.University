@@ -7,7 +7,7 @@ const H2Container = ({ children, className }) => {
 }
 
 export const H2 = s(H2Container)`
-	margin: 40px 0;
+	margin-bottom: 40px;
 `
 H2Container.propTypes = {
 	children: PropsType.node,

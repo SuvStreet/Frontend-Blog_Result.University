@@ -1,4 +1,4 @@
-export const updatePost = ({id, imgUrl, title, content}) =>
+export const updatePost = ({ id, imgUrl, title, content }) =>
 	fetch(`http://localhost:5000/posts/${id}`, {
 		method: 'PATCH',
 		headers: {
@@ -9,4 +9,4 @@ export const updatePost = ({id, imgUrl, title, content}) =>
 			img_url: imgUrl,
 			content,
 		}),
-	})
+	}).then((loadedPost) => loadedPost.json())
