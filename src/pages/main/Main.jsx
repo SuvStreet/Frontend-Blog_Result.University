@@ -2,39 +2,39 @@ import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import { useServerRequest } from '../../hooks'
-import { PostCard } from './components'
+import { PostCard, Pagination } from './components'
+import { Input, Loader } from '../../components'
+import { PAGINATION_LIMIT } from '../../constants'
 
 import s from 'styled-components'
-import { Input, Loader } from '../../components'
 
 const MainContainer = ({ className }) => {
 	const [loading, setLoading] = useState(true)
 	const [posts, setPosts] = useState([])
+	const [page, setPage] = useState(1)
+	const [lastPage, setLastPage] = useState(1)
 	const requestServer = useServerRequest()
 
 	useEffect(() => {
-		// Promise.all([requestServer('fetchPosts'), requestServer('fetchComments')])
-		// if(!session && !posts.length) {
-
-		// }
-		requestServer('fetchPosts')
-			.then((postsRes) => {
-				if (postsRes.error) {
+		requestServer('fetchPosts', page, PAGINATION_LIMIT)
+			.then(({ error, res: { posts, lastPage } }) => {
+				if (error) {
 					// setErrorMessage(usersRes.error || roleRes.error)
 					return
 				}
 
-				setPosts(postsRes.res)
+				setPosts(posts)
+				setLastPage(lastPage)
 			})
 			.finally(() => {
 				setLoading(false)
 			})
-	}, [requestServer])
+	}, [requestServer, page])
 
 	return (
 		<div className={className}>
 			{loading ? (
-				<Loader />
+				<Loader height='calc(100dvh - 342px)' />
 			) : (
 				<>
 					<div className='search-panel'>
@@ -52,8 +52,15 @@ const MainContainer = ({ className }) => {
 							/>
 						))}
 					</div>
-					<div className='pagination'></div>
 				</>
+			)}
+			{lastPage > 1 && (
+				<Pagination
+					page={page}
+					lastPage={lastPage}
+					setPage={setPage}
+					setLoading={setLoading}
+				/>
 			)}
 		</div>
 	)
@@ -62,9 +69,9 @@ const MainContainer = ({ className }) => {
 export const Main = s(MainContainer)`
 	padding: 20px;
 	display: flex;
+	justify-content: space-between;
 	flex-direction: column;
 	align-items: center;
-
 
 	& .posts-list {
 		display: flex;
