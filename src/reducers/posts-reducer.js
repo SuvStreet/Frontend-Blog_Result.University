@@ -1,5 +1,10 @@
 const initialPostsState = {
-
+	id: '',
+	title: '',
+	imgUrl: '',
+	content: '',
+	publishedAt: '',
+	comments: [],
 }
 
 export const postsReducer = (state = initialPostsState, action) => {

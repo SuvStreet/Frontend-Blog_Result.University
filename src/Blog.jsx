@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Header, Footer, Loader, Modal } from './components'
-import { Authorization, Registration, Users, Post } from './pages'
+import { Authorization, Registration, Users, Post, Main } from './pages'
 import { useServerRequest } from './hooks'
 import { setLoading, setUser } from './actions'
 import { selectLoading, selectUserSession } from './selectors'
@@ -54,7 +54,7 @@ export const Blog = () => {
 			<Header />
 			<Page>
 				<Routes>
-					<Route path='/' element={<div>Главная страница</div>} />
+					<Route path='/' element={<Main />} />
 					<Route path='/login' element={<Authorization />} />
 					<Route path='/register' element={<Registration />} />
 					<Route path='/users' element={<Users />} />
