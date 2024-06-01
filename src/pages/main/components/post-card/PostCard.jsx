@@ -48,7 +48,7 @@ const PostCardContainer = ({
 }
 
 export const PostCard = s(PostCardContainer)`
-	width: 280px;
+	width: 260px;
 	border-radius: 10px;
 	border: 1px solid #5e5e5e;
 

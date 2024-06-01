@@ -23,6 +23,7 @@ const AppColumn = s.div`
 `
 
 const Page = s.div`
+	flex: 1 0 auto;
 	// padding-top: 20px;
 	// min-height: 500vh;
 	// width: 100%;

@@ -9,7 +9,7 @@ const LoaderContainer = ({ className }) => {
 }
 
 export const Loader = s(LoaderContainer)`
-	height: ${(props) => props.height || 'auto'};
+	height: ${(props) => props.height || 'calc(100dvh - 342px)'};
 	display: flex;
 	justify-content: center;
 	align-items: center;

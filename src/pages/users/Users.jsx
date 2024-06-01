@@ -77,12 +77,8 @@ export const Users = s(UsersContainer)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 0 auto;
+	margin: 40px auto;
 	width: 570px;
-
-	& h2 {
-		margin-top: 0;
-	}
 `
 
 UsersContainer.propTypes = {

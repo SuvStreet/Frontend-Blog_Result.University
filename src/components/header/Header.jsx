@@ -35,13 +35,13 @@ export const Header = s(HeaderContainer)`
 	justify-content: space-between;
 	position: sticky;
 	top: 0;
-	max-width: 1000px;
 	width: 100%;
 	height: 120px;
 	padding: 20px 40px;
 	background-color: #242424;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	z-index: 10;
+
 `
 
 HeaderContainer.propTypes = {
