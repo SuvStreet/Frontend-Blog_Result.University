@@ -18,7 +18,7 @@ const PostCardContainer = ({
 	return (
 		<div className={className}>
 			<Link to={`/post/${id}`}>
-			<Img src={imgUrl} alt={title} /* margin='0 0 20px 0' */ />
+			<Img src={imgUrl} alt={title} />
 			<div className='card-footer'>
 				<h4>{title}</h4>
 				<div className='card-footer__info'>

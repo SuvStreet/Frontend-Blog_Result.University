@@ -2,11 +2,12 @@ import { useLayoutEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Header, Footer, Loader, Modal } from './components'
+import { Header, Footer, Loader, Modal, Error } from './components'
 import { Authorization, Registration, Users, Post, Main } from './pages'
 import { useServerRequest } from './hooks'
 import { setLoading, setUser } from './actions'
 import { selectLoading, selectUserSession } from './selectors'
+import { ERROR } from './constants'
 
 import s from 'styled-components'
 
@@ -23,8 +24,10 @@ const AppColumn = s.div`
 `
 
 const Page = s.div`
+	display: flex;
+	justify-content: space-around;
 	flex: 1 0 auto;
-	// padding-top: 20px;
+	padding: 20px 40px;
 	// min-height: 500vh;
 	// width: 100%;
 `
@@ -62,7 +65,7 @@ export const Blog = () => {
 					<Route path='/post' element={<Post />} />
 					<Route path='/post/:id' element={<Post />} />
 					<Route path='/post/:id/edit' element={<Post />} />
-					<Route path='*' element={<div>Ошибка</div>} />
+					<Route path='*' element={<Error error={ERROR.PAGE_NOT_FOUND} pageNotFound />} />
 				</Routes>
 			</Page>
 			<Footer />

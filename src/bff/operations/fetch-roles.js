@@ -1,13 +1,13 @@
 import { getRoles } from '../api'
 import { sessions } from '../sessions'
-import { ROLE } from '../constants'
+import { ERROR, ROLE } from '../constants'
 
 export const fetchRoles = async (hash) => {
 	const accessRoles = [ROLE.ADMIN]
 
 	if (!sessions.access(hash, accessRoles)) {
 		return {
-			error: 'Доступ запрещен',
+			error: ERROR.NO_ACCESS,
 			res: null,
 		}
 	}

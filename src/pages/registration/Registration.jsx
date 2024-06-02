@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -55,6 +55,12 @@ const RegistrationContainer = ({ className }) => {
 
 	const dispatch = useDispatch()
 
+	useEffect(() => {
+		if(localStorage.getItem('currentUserData')) {
+			navigate('/')
+		}
+	}, [navigate])
+
 	const onSubmit = ({ login, password }) => {
 		server.register(login, password).then(({ error, res }) => {
 			if (error) {
@@ -105,7 +111,7 @@ export const Registration = s(RegistrationContainer)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 0 40px;
+	margin: 40px;
 
 	& > form {
 		display: flex;

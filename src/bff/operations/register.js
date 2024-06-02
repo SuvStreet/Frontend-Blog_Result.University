@@ -1,4 +1,5 @@
 import { getUser, addUser } from '../api'
+import { ERROR } from '../constants'
 import { sessions } from '../sessions'
 
 export const register = async (regLogin, regPassword) => {
@@ -6,7 +7,7 @@ export const register = async (regLogin, regPassword) => {
 
 	if (existedUser) {
 		return {
-			error: 'Такой логин уже существует',
+			error: ERROR.EXISTED_USER,
 			res: null,
 		}
 	}

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 
 import { useServerRequest } from '../../hooks'
 import { PostCard, Pagination, Search } from './components'
-import { Loader } from '../../components'
-import { PAGINATION_LIMIT } from '../../constants'
+import { Error, Loader } from '../../components'
+import { ERROR, PAGINATION_LIMIT } from '../../constants'
 import { debounce } from './components/utils'
 
 import s from 'styled-components'
@@ -29,7 +29,6 @@ const MainContainer = ({ className }) => {
 
 				setPosts(posts)
 				setLastPage(lastPage)
-				console.log('lastPage', lastPage)
 			})
 			.finally(() => {
 				setLoading(false)
@@ -45,11 +44,11 @@ const MainContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
+			<Search searchPhrase={searchPhrase} onChange={onSearch} />
 			{loading ? (
 				<Loader />
 			) : (
 				<>
-					<Search searchPhrase={searchPhrase} onChange={onSearch} />
 					{posts.length ? (
 						<div className='posts-list'>
 							{posts.map(({ id, title, imgUrl, publishedAt, commentsCount }) => (
@@ -64,7 +63,9 @@ const MainContainer = ({ className }) => {
 							))}
 						</div>
 					) : (
-						<div className='no-post-found'>Ничего не найдено</div>
+						<div className='no-post-found'>
+							<Error error={ERROR.NO_DATA_SEARCH} noDataSearch />
+						</div>
 					)}
 				</>
 			)}
@@ -81,22 +82,23 @@ const MainContainer = ({ className }) => {
 }
 
 export const Main = s(MainContainer)`
-	padding: 20px 40px;
 	display: flex;
-	justify-content: space-between;
 	flex-direction: column;
 	align-items: center;
 
 	& .posts-list {
-		width: 100%;
 		display: flex;
+		justify-content: center;
 		flex-wrap: wrap;
 		gap: 40px;
 		margin-top: 20px;
 	}
 
 	& .no-post-found {
-		margin-top: 20px;
+		flex: 1 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		font-size: 20px;
 		font-weight: bold;
 	}

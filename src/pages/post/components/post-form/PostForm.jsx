@@ -4,16 +4,16 @@ import { useNavigate } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
 
-import { Content, Icon, Input } from '../../../../components'
+import { PrivateContent, H2, Icon, Input } from '../../../../components'
 import { SpecialPanel } from '../special-panel/SpecialPanel'
 import { sanitizeContent } from './utils'
 import { useServerRequest } from '../../../../hooks'
 import { savePostAsync } from '../../../../actions'
+import { selectUserRole } from '../../../../selectors'
+import { ERROR, ROLE } from '../../../../constants'
 
 import { faFloppyDisk } from '@fortawesome/free-regular-svg-icons'
 import s from 'styled-components'
-import { selectUserRole } from '../../../../selectors'
-import { ROLE } from '../../../../constants'
 
 const PostFormContainer = ({
 	className,
@@ -22,6 +22,7 @@ const PostFormContainer = ({
 	const [imgUrlValue, setImgUrlValue] = useState(imgUrl)
 	const [titleValue, setTitleValue] = useState(title)
 	const [errorMessage, setErrorMessage] = useState(null)
+	const [contentRefIsEmpty, setContentRefIsEmpty] = useState(true)
 	const contentRef = useRef(null)
 	const requestServer = useServerRequest()
 	const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const PostFormContainer = ({
 
 	useLayoutEffect(() => {
 		if (userRole !== ROLE.ADMIN) {
-			setErrorMessage('Доступ запрещен')
+			setErrorMessage(ERROR.NO_ACCESS)
 			return
 		}
 
@@ -38,10 +39,13 @@ const PostFormContainer = ({
 		setTitleValue(title)
 	}, [title, imgUrl, userRole])
 
+	const onInputContentRefChange = ({ target: { innerText } }) =>
+		innerText === '' ? setContentRefIsEmpty(true) : setContentRefIsEmpty(false)
+
 	const onSave = () => {
 		const newContent = sanitizeContent(contentRef.current.innerHTML)
 
-		if (!imgUrlValue && !titleValue && !newContent) {
+		if (!imgUrlValue || !titleValue || !newContent) {
 			return
 		}
 
@@ -67,14 +71,15 @@ const PostFormContainer = ({
 	const onTitleChange = ({ target: { value } }) => setTitleValue(value)
 
 	return (
-		<Content error={errorMessage}>
-			<div className={className}>
+		<div className={className}>
+			<PrivateContent serverError={errorMessage}>
+				<H2>Создание статьи</H2>
 				<Input
 					value={imgUrlValue}
 					onChange={onImgChange}
-					placeholder='Ссылка на изображение'
+					placeholder='Ссылка на изображение...'
 				/>
-				<Input value={titleValue} onChange={onTitleChange} placeholder='Заголовок' />
+				<Input value={titleValue} onChange={onTitleChange} placeholder='Заголовок...' />
 
 				<SpecialPanel
 					post={{ id, publishedAt }}
@@ -87,12 +92,14 @@ const PostFormContainer = ({
 					ref={contentRef}
 					contentEditable={true}
 					suppressContentEditableWarning={true}
-					className='post-text'
+					data-placeholder='Текст статьи...'
+					onInput={onInputContentRefChange}
+					className={'post-text ' + (contentRefIsEmpty && 'empty')}
 				>
 					{content}
 				</div>
-			</div>
-		</Content>
+			</PrivateContent>
+		</div>
 	)
 }
 
@@ -103,6 +110,23 @@ export const PostForm = s(PostFormContainer)`
 		border: 1px solid #5e5e5e;
 		border-radius: 10px;
 		padding: 10px;
+		position: relative;
+	}
+
+	& .post-text.empty::before {
+		content: attr(data-placeholder);
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		color: #6d6d6d;
+		pointer-events: none;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	h2 {
+		text-align: center;
 	}
 `
 

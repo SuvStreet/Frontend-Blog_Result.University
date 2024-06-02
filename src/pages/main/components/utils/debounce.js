@@ -5,15 +5,4 @@ export const debounce = (func, wait) => {
 		clearTimeout(timeoutId)
 		timeoutId = setTimeout(func, wait, args)
 	}
-
-
-	// let timeout
-	// return function () {
-	// 	const context = this
-	// 	const args = arguments
-	// 	clearTimeout(timeout)
-	// 	timeout = setTimeout(() => {
-	// 		func.apply(context, args)
-	// 	}, wait)
-	// }
 }

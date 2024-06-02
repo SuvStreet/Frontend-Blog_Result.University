@@ -18,7 +18,7 @@
       "login": "admin23",
       "password": "12345",
       "registered_at": "2056-09-04 17:39",
-      "role_id": 2,
+      "role_id": 1,
       "id": "tzGFxXm"
     },
     {
@@ -250,24 +250,5 @@
       "id": 19
     }
   ],
-  "sessions": [
-    {
-      "hash": "0.85051960321159447708794232312357053160667419433594",
-      "user": {
-        "id": "dfgJMh",
-        "login": "admin",
-        "role_id": 0
-      },
-      "id": 1
-    },
-    {
-      "hash": "0.63517955767511224962618143763393163681030273437500",
-      "user": {
-        "id": "dfgJMh",
-        "login": "admin",
-        "role_id": 0
-      },
-      "id": 2
-    }
-  ]
+  "sessions": []
 }

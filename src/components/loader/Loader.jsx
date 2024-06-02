@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types'
 
+import { Icon } from '../icon/Icon'
+
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
 
 const LoaderContainer = ({ className }) => {
-	return <div className={className}>
-		<div className='loader'></div>
-	</div>
+	return (
+		<div className={className}>
+			<Icon iconCode={faSpinner} fontSize='5rem' spinPulse />
+		</div>
+	)
 }
 
 export const Loader = s(LoaderContainer)`
@@ -13,25 +18,6 @@ export const Loader = s(LoaderContainer)`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	& .loader {
-		margin: 0 auto;
-		border: 10px solid #414141;
-		border-top: 10px solid #3498db;
-		border-radius: 50%;
-		width: 50px;
-		height: 50px;
-		animation: spin 1s linear infinite;
-	}
-
-	@keyframes spin {
-		0% {
-			transform: rotate(0deg);
-		}
-		100% {
-			transform: rotate(360deg);
-		}
-	}
 `
 
 LoaderContainer.propTypes = {

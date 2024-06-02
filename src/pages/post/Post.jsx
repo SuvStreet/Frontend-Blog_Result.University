@@ -5,19 +5,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { useServerRequest } from '../../hooks'
-import { loadPostAsync,  REMOVE_POST } from '../../actions'
+import { loadPostAsync, REMOVE_POST } from '../../actions'
 import { selectPost, selectUserSession } from '../../selectors'
 import { PostContent, Comments, PostForm } from './components'
-import { Loader } from '../../components'
+import { Error, Loader } from '../../components'
 
 import s from 'styled-components'
 
 const PostContainer = ({ className }) => {
 	const [isLoading, setIsLoading] = useState(false)
+	const [error, setError] = useState(null)
 	const dispatch = useDispatch()
 	const { id } = useParams()
-	const isEditing = useMatch('/post/:id/edit')
-	const isCreating = useMatch('/post')
+	const isEditing = !!useMatch('/post/:id/edit')
+	const isCreating = !!useMatch('/post')
 	const requestServer = useServerRequest()
 	const post = useSelector(selectPost)
 	const session = useSelector(selectUserSession)
@@ -27,24 +28,32 @@ const PostContainer = ({ className }) => {
 	}, [dispatch, isCreating])
 
 	useEffect(() => {
-		if(isCreating) {
+		if (isCreating) {
 			return
 		}
 
-		if (!post.id && !session || !isCreating && !post.id) {
+		if ((!post.id && !session) || (!isCreating && !post.id)) {
 			setIsLoading(true)
-			dispatch(loadPostAsync(requestServer, id)).finally(() =>
-				setIsLoading(false),
-			)
+			dispatch(loadPostAsync(requestServer, id))
+				.then((postData) => {
+					if (postData.error) {
+						setError(postData.error)
+					}
+				})
+				.finally(() => setIsLoading(false))
 		}
 	}, [id, requestServer, dispatch, isCreating, session, post.id])
 
 	return (
-		<>
+		<div className={className}>
 			{isLoading ? (
 				<Loader />
+			) : error ? (
+				<>
+					<Error error={error} spin />
+				</>
 			) : (
-				<div className={className}>
+				<>
 					{isCreating || isEditing ? (
 						<PostForm post={post} />
 					) : (
@@ -53,15 +62,29 @@ const PostContainer = ({ className }) => {
 							<Comments comments={post.comments} postId={post.id} />
 						</>
 					)}
-				</div>
+				</>
 			)}
-		</>
+		</div>
 	)
 }
 
 export const Post = s(PostContainer)`
-	margin: 40px 0;
-	padding: 0 80px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	// & .error {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// }
+
+	// & .error-message {
+	// 	font-size: 20px;
+	// 	font-weight: bold;
+	// 	text-align: center;
+	// 	margin-top: 20px;
+	// }
 `
 
 PostContainer.propTypes = {

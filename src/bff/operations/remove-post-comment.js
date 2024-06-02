@@ -1,5 +1,5 @@
 import { deleteComment } from '../api'
-import { ROLE } from '../constants'
+import { ERROR, ROLE } from '../constants'
 import { sessions } from '../sessions'
 
 export const removePostComment = async (hash, commentId) => {
@@ -7,7 +7,7 @@ export const removePostComment = async (hash, commentId) => {
 
 	if (!sessions.access(hash, accessRoles)) {
 		return {
-			error: 'Доступ запрещен',
+			error: ERROR.NO_ACCESS,
 			res: null,
 		}
 	}

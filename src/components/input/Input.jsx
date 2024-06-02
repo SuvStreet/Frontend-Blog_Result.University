@@ -19,10 +19,6 @@ export const Input = s(InputContainer)`
 	background-color: transparent;
 	color: white;
 	font-size: 20px;
-
-	// &:auto-fill {
-	// 	outline: none;
-	// }
 `
 
 InputContainer.propTypes = {

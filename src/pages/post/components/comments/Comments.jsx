@@ -3,23 +3,30 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import PropTypes from 'prop-types'
 
-import { selectUserId, selectUserLogin } from '../../../../selectors'
+import { selectUserId, selectUserLogin, selectUserRole } from '../../../../selectors'
 import { Icon } from '../../../../components'
 import { Comment } from './components'
 import { useServerRequest } from '../../../../hooks'
 import { addCommentAsync } from '../../../../actions'
+import { checkAccess } from '../../../../utils'
 
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons'
 import s from 'styled-components'
+import { ROLE } from '../../../../constants'
 
 const CommentsContainer = ({ className, comments, postId }) => {
 	const [newComment, setNewComment] = useState('')
 	const requestServer = useServerRequest()
+	const userRole = useSelector(selectUserRole)
 	const userId = useSelector(selectUserId)
 	const userLogin = useSelector(selectUserLogin)
 	const dispatch = useDispatch()
 
 	const onNewCommentAdd = (userId, userLogin, postId, content) => {
+		if (!checkAccess([ROLE.ADMIN, ROLE.MODERATOR, ROLE.READER], userRole)) {
+			return
+		}
+
 		if (newComment === '') return
 		dispatch(addCommentAsync(requestServer, userId, userLogin, postId, content))
 		setNewComment('')
@@ -43,15 +50,21 @@ const CommentsContainer = ({ className, comments, postId }) => {
 			</div>
 
 			<div className='comments'>
-				{comments.map(({ id, author, content, publishedAt }) => (
-					<Comment
-						key={id}
-						commentId={id}
-						author={author}
-						content={content}
-						publishedAt={publishedAt}
-					/>
-				))}
+				{comments.length === 0 ? (
+					<span className='comments__not-found'>
+						Комментариев ещё нет, давай добавим!
+					</span>
+				) : (
+					comments.map(({ id, author, content, publishedAt }) => (
+						<Comment
+							key={id}
+							commentId={id}
+							author={author}
+							content={content}
+							publishedAt={publishedAt}
+						/>
+					))
+				)}
 			</div>
 		</div>
 	)
@@ -59,11 +72,24 @@ const CommentsContainer = ({ className, comments, postId }) => {
 
 export const Comments = s(CommentsContainer)`
 	width: 580px;
-	margin: 30px auto 0;
+	margin: 10px auto 0;
 
 	& .new-comment {
 		display: flex;
 		margin: 20px 0;
+	}
+
+	& .comments {
+
+		display: flex;
+		flex-direction: column;
+
+		&__not-found {
+			font-size: 20px;
+			font-weight: bold;
+			text-align: center;
+			margin-right: 40px;
+		}
 	}
 
 	& .new-comment textarea {

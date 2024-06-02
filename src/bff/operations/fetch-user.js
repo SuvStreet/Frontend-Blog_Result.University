@@ -1,4 +1,5 @@
 import { getSession } from '../api'
+import { ERROR } from '../constants'
 import { sessions } from '../sessions'
 
 export const fetchUser = async (hash) => {
@@ -6,7 +7,7 @@ export const fetchUser = async (hash) => {
 
 	if (!activeSession) {
 		return {
-			error: 'Активная сессия не найдена',
+			error: ERROR.NO_SESSION,
 			res: null,
 		}
 	}

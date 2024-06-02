@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { H2, Content, Loader } from '../../components'
+import { H2, PrivateContent, Loader } from '../../components'
 import { UserRow, TableRow } from './components'
 import { useServerRequest } from '../../hooks'
 import { ROLE } from '../../constants'
@@ -45,7 +45,7 @@ const UsersContainer = ({ className }) => {
 			{loading ? (
 				<Loader />
 			) : (
-				<Content error={errorMessage}>
+				<PrivateContent serverError={errorMessage}>
 					<>
 						<H2>Пользователи</H2>
 						<div>
@@ -67,7 +67,7 @@ const UsersContainer = ({ className }) => {
 							))}
 						</div>
 					</>
-				</Content>
+				</PrivateContent>
 			)}
 		</div>
 	)
@@ -76,6 +76,7 @@ const UsersContainer = ({ className }) => {
 export const Users = s(UsersContainer)`
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	margin: 40px auto;
 	width: 570px;

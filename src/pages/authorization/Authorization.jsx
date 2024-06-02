@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -59,6 +59,12 @@ const AuthorizationContainer = ({ className }) => {
 
 	const dispatch = useDispatch()
 
+	useEffect(() => {
+		if(localStorage.getItem('currentUserData')) {
+			navigate('/')
+		}
+	}, [navigate])
+
 	const onSubmit = ({ login, password }) => {
 		requestServer('authorize', login, password).then(({ error, res }) => {
 			if (error) {
@@ -104,7 +110,7 @@ export const Authorization = s(AuthorizationContainer)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 0 40px;
+	margin: 40px 0;
 
 	& > form {
 		display: flex;
