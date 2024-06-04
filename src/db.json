@@ -8,25 +8,18 @@
       "role_id": 0
     },
     {
-      "login": "admin1",
+      "login": "moderator",
       "password": "12345",
-      "registered_at": "2033-12-21 11:33",
+      "registered_at": "2057-09-20 22:18",
       "role_id": 1,
-      "id": "syqJMhL"
+      "id": "fi3GPCZ"
     },
     {
-      "login": "admin23",
+      "login": "reader",
       "password": "12345",
-      "registered_at": "2056-09-04 17:39",
-      "role_id": 1,
-      "id": "tzGFxXm"
-    },
-    {
-      "login": "suvstreet",
-      "password": "12345",
-      "registered_at": "2056-07-15 11:49",
+      "registered_at": "2061-03-01 01:22",
       "role_id": 2,
-      "id": "c_vso5A"
+      "id": "7HsOJ_J"
     }
   ],
   "roles": [
@@ -248,7 +241,25 @@
       "published_at": "2058-05-18 13:59",
       "content": "Мой первый комментарий!",
       "id": 19
+    },
+    {
+      "author_id": "fi3GPCZ",
+      "author_login": "moderator",
+      "post_id": "002",
+      "published_at": "2051-11-05 07:35",
+      "content": "Комментарий модератора\n",
+      "id": 56
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "hash": "0.23755110650027622121172043989645317196846008300781",
+      "user": {
+        "id": "fi3GPCZ",
+        "login": "moderator",
+        "role_id": 1
+      },
+      "id": 1
+    }
+  ]
 }

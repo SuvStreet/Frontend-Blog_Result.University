@@ -14,6 +14,7 @@ import {
 	faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
+import { checkAccess } from '../../../../utils'
 
 const RightAligned = s.div`
 	display: flex;
@@ -36,6 +37,8 @@ const ControlPanelContainer = ({ className }) => {
 		dispatch(logout(session))
 		localStorage.removeItem('currentUserData')
 	}
+
+	const isAdmin = checkAccess([ROLE.ADMIN], roleId)
 
 	return (
 		<div className={className}>
@@ -63,12 +66,16 @@ const ControlPanelContainer = ({ className }) => {
 					margin='0 10px 0 0'
 					onClick={() => navigate(-1)}
 				/>
-				<Link to='/post'>
-					<Icon fontSize='2rem' iconCode={faFileSignature} margin='0 10px 0 0' />
-				</Link>
-				<Link to='/users'>
-					<Icon fontSize='2rem' iconCode={faUsers} margin='0 10px 0 0' />
-				</Link>
+				{isAdmin && (
+					<>
+						<Link to='/post'>
+							<Icon fontSize='2rem' iconCode={faFileSignature} margin='0 10px 0 0' />
+						</Link>
+						<Link to='/users'>
+							<Icon fontSize='2rem' iconCode={faUsers} margin='0 10px 0 0' />
+						</Link>
+					</>
+				)}
 			</RightAligned>
 		</div>
 	)

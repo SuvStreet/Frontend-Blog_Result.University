@@ -8,18 +8,19 @@ import { Icon } from '../../../../components'
 import { useServerRequest } from '../../../../hooks'
 import { selectUserRole } from '../../../../selectors'
 import { ROLE } from '../../../../constants'
+import { checkAccess } from '../../../../utils'
 
 import { faCalendarDays, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
 
 const SpecialPanelContainer = ({ className, post: { id, publishedAt }, editButton }) => {
 	const dispatch = useDispatch()
-	const userRole =useSelector(selectUserRole)
+	const userRole = useSelector(selectUserRole)
 	const navigate = useNavigate()
 	const requestServer = useServerRequest()
 
 	const onPostRemove = () => {
-		if(userRole !== ROLE.ADMIN) return
+		if (userRole !== ROLE.ADMIN) return
 		dispatch(
 			openModal({
 				textModal: 'Вы действительно хотите удалить статью?',
@@ -32,21 +33,34 @@ const SpecialPanelContainer = ({ className, post: { id, publishedAt }, editButto
 		)
 	}
 
+	const isAdmin = checkAccess([ROLE.ADMIN], userRole)
+
 	return (
 		<div className={className}>
 			<div className='published-at'>
-				{publishedAt && <Icon
-					fontSize='1.2rem'
-					iconCode={faCalendarDays}
-					margin='0 10px 0 0'
-					cursor='default'
-				/>}
+				{publishedAt && (
+					<Icon
+						fontSize='1.2rem'
+						iconCode={faCalendarDays}
+						margin='0 10px 0 0'
+						cursor='default'
+					/>
+				)}
 				{publishedAt}
 			</div>
-			<div className='buttons'>
-				{editButton}
-				{publishedAt && <Icon fontSize='1.3rem' iconCode={faTrashCan} margin='0 0 0 10px' onClick={() => onPostRemove()} />}
-			</div>
+			{isAdmin && (
+				<div className='buttons'>
+					{editButton}
+					{publishedAt && (
+						<Icon
+							fontSize='1.3rem'
+							iconCode={faTrashCan}
+							margin='0 0 0 20px'
+							onClick={() => onPostRemove()}
+						/>
+					)}
+				</div>
+			)}
 		</div>
 	)
 }

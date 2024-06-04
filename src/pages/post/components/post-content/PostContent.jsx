@@ -30,7 +30,6 @@ const PostContentContainer = ({
 					<Icon
 						fontSize='1.3rem'
 						iconCode={faPenToSquare}
-						margin='0 10px 0 0'
 						onClick={() => onEdit()}
 					/>
 				}

@@ -1,21 +1,20 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 import PropsTypes from 'prop-types'
 
 import { CLOSE_MODAL, openModal, removeCommentAsync } from '../../../../../../actions'
 import { useServerRequest } from '../../../../../../hooks'
 import { Icon } from '../../../../../../components'
+import { checkAccess } from '../../../../../../utils'
+import { ROLE } from '../../../../../../constants'
+import { selectUserRole } from '../../../../../../selectors'
 
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons'
 import { faCalendarDays, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
 
-const CommentContainer = ({
-	className,
-	commentId,
-	author,
-	content,
-	publishedAt,
-}) => {
+const CommentContainer = ({ className, commentId, author, content, publishedAt }) => {
+	const userRole = useSelector(selectUserRole)
 	const dispatch = useDispatch()
 	const requestServer = useServerRequest()
 
@@ -31,6 +30,8 @@ const CommentContainer = ({
 			}),
 		)
 	}
+
+	const isAdminOrModerator = checkAccess([ROLE.ADMIN, ROLE.MODERATOR], userRole)
 
 	return (
 		<div className={className}>
@@ -60,12 +61,14 @@ const CommentContainer = ({
 				</div>
 			</div>
 
-			<Icon
-				fontSize='1.3rem'
-				iconCode={faTrashCan}
-				margin='0 0 0 20px'
-				onClick={() => onCommentRemove()}
-			/>
+			{isAdminOrModerator && (
+				<Icon
+					fontSize='1.3rem'
+					iconCode={faTrashCan}
+					margin='0 0 0 20px'
+					onClick={() => onCommentRemove()}
+				/>
+			)}
 		</div>
 	)
 }

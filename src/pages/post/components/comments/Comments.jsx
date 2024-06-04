@@ -32,22 +32,26 @@ const CommentsContainer = ({ className, comments, postId }) => {
 		setNewComment('')
 	}
 
+	const isGuest = checkAccess([ROLE.GUEST], userRole)
+
 	return (
 		<div className={className}>
-			<div className='new-comment'>
-				<textarea
-					name='comment'
-					placeholder='Комментарий...'
-					value={newComment}
-					onChange={({ target: { value } }) => setNewComment(value)}
-				></textarea>
-				<Icon
-					fontSize='1.3rem'
-					iconCode={faPaperPlane}
-					margin='0 0 0 20px'
-					onClick={() => onNewCommentAdd(userId, userLogin, postId, newComment)}
-				/>
-			</div>
+			{!isGuest && (
+				<div className='new-comment'>
+					<textarea
+						name='comment'
+						placeholder='Комментарий...'
+						value={newComment}
+						onChange={({ target: { value } }) => setNewComment(value)}
+					></textarea>
+					<Icon
+						fontSize='1.3rem'
+						iconCode={faPaperPlane}
+						margin='0 0 0 20px'
+						onClick={() => onNewCommentAdd(userId, userLogin, postId, newComment)}
+					/>
+				</div>
+			)}
 
 			<div className='comments'>
 				{comments.length === 0 ? (
@@ -76,7 +80,7 @@ export const Comments = s(CommentsContainer)`
 
 	& .new-comment {
 		display: flex;
-		margin: 20px 0;
+		margin: 20px 0 0 0;
 	}
 
 	& .comments {
