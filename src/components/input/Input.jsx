@@ -1,5 +1,5 @@
-import { forwardRef } from 'react'
 import PropTypes from 'prop-types'
+import { forwardRef } from 'react'
 
 import s from 'styled-components'
 
@@ -22,5 +22,6 @@ export const Input = s(InputContainer)`
 `
 
 InputContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
+	width: PropTypes.string,
 }

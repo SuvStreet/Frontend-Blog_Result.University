@@ -21,5 +21,5 @@ export const Loader = s(LoaderContainer)`
 `
 
 LoaderContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

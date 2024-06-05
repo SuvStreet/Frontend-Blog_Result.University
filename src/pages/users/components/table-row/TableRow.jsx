@@ -8,9 +8,8 @@ const TableRowContainer = ({ className, children }) => {
 
 export const TableRow = s(TableRowContainer)`
 	display: flex;
-	// justify-content: space-between;
 	align-items: center;
-	border: ${({ border }) => border ? '1px solid #ccc' : 'none'};
+	border: ${({ border }) => (border ? '1px solid #ccc' : 'none')};
 	border-radius: 5px;
 
 	& > div {
@@ -32,6 +31,6 @@ export const TableRow = s(TableRowContainer)`
 `
 
 TableRowContainer.propTypes = {
-	className: PropTypes.string,
-	children: PropTypes.node,
+	className: PropTypes.string.isRequired,
+	children: PropTypes.node.isRequired,
 }

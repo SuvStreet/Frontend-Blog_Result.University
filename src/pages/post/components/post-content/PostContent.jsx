@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import { H2, Icon, Img } from '../../../../components'
 import { SpecialPanel } from '../special-panel/SpecialPanel'
+import { PROP_TYPES } from '../../../../constants'
 
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
@@ -27,11 +28,7 @@ const PostContentContainer = ({
 				post={{ id, publishedAt }}
 				margin='-20px 0 20px'
 				editButton={
-					<Icon
-						fontSize='1.3rem'
-						iconCode={faPenToSquare}
-						onClick={() => onEdit()}
-					/>
+					<Icon fontSize='1.3rem' iconCode={faPenToSquare} onClick={() => onEdit()} />
 				}
 			/>
 
@@ -48,6 +45,6 @@ export const PostContent = s(PostContentContainer)`
 `
 
 PostContentContainer.propTypes = {
-	className: PropTypes.string,
-	post: PropTypes.object,
+	className: PropTypes.string.isRequired,
+	post: PROP_TYPES.POST.isRequired,
 }

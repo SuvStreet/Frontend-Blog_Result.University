@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
-
 import PropTypes from 'prop-types'
+import { useEffect, useMemo, useState } from 'react'
 
 import { useServerRequest } from '../../hooks'
 import { PostCard, Pagination, Search } from './components'
@@ -23,7 +22,6 @@ const MainContainer = ({ className }) => {
 		requestServer('fetchPosts', searchPhrase, page, PAGINATION_LIMIT)
 			.then(({ error, res: { posts, lastPage } }) => {
 				if (error) {
-					// setErrorMessage(usersRes.error || roleRes.error)
 					return
 				}
 
@@ -105,5 +103,5 @@ export const Main = s(MainContainer)`
 `
 
 MainContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

@@ -1,11 +1,10 @@
+import PropsType from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import { H2, PrivateContent, Loader } from '../../components'
 import { UserRow, TableRow } from './components'
 import { useServerRequest } from '../../hooks'
 import { ROLE } from '../../constants'
-
-import PropsType from 'prop-types'
 
 import s from 'styled-components'
 
@@ -83,5 +82,5 @@ export const Users = s(UsersContainer)`
 `
 
 UsersContainer.propTypes = {
-	className: PropsType.string,
+	className: PropsType.string.isRequired,
 }

@@ -1,16 +1,45 @@
 import PropTypes from 'prop-types'
 
-import s from 'styled-components'
 import { Button } from '../../../../components'
+
+import s from 'styled-components'
 
 const PaginationContainer = ({ className, page, lastPage, setPage, setLoading }) => {
 	return (
 		<div className={className}>
-			<Button disabled={page === 1} onClick={() => {setPage(1), setLoading(true)}}>В начало</Button>
-			<Button disabled={page === 1} onClick={() => {setPage(page - 1), setLoading(true)}}>Предыдущая</Button>
+			<Button
+				disabled={page === 1}
+				onClick={() => {
+					setPage(1), setLoading(true)
+				}}
+			>
+				В начало
+			</Button>
+			<Button
+				disabled={page === 1}
+				onClick={() => {
+					setPage(page - 1), setLoading(true)
+				}}
+			>
+				Предыдущая
+			</Button>
 			<div className='current-page'>Страница: {page}</div>
-			<Button disabled={page === lastPage} onClick={() => {setPage(page + 1), setLoading(true)}}>Следующая</Button>
-			<Button disabled={page === lastPage} onClick={() => {setPage(lastPage), setLoading(true)}}>В конец</Button>
+			<Button
+				disabled={page === lastPage}
+				onClick={() => {
+					setPage(page + 1), setLoading(true)
+				}}
+			>
+				Следующая
+			</Button>
+			<Button
+				disabled={page === lastPage}
+				onClick={() => {
+					setPage(lastPage), setLoading(true)
+				}}
+			>
+				В конец
+			</Button>
 		</div>
 	)
 }
@@ -40,9 +69,9 @@ export const Pagination = s(PaginationContainer)`
 `
 
 PaginationContainer.propTypes = {
-	className: PropTypes.string,
-	page: PropTypes.number,
-	lastPage: PropTypes.number,
-	setPage: PropTypes.func,
-	setLoading: PropTypes.func,
+	className: PropTypes.string.isRequired,
+	page: PropTypes.number.isRequired,
+	lastPage: PropTypes.number.isRequired,
+	setPage: PropTypes.func.isRequired,
+	setLoading: PropTypes.func.isRequired,
 }

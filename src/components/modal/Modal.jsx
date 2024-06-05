@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
 import { Button } from '../button/Button'
 import {
@@ -17,7 +17,7 @@ const ModalContainer = ({ className }) => {
 	const onConfirm = useSelector(selectModalOnConfirm)
 	const onCancel = useSelector(selectModalOnCancel)
 
-	if(!isOpen) return null
+	if (!isOpen) return null
 
 	return (
 		<div className={`${className} ${isOpen && 'modal-open'}`}>
@@ -75,10 +75,8 @@ export const Modal = s(ModalContainer)`
 		justify-content: space-around;
 		width: 100%;
 	}
-
-
 `
 
 ModalContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

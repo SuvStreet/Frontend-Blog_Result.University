@@ -35,6 +35,6 @@ export const Button = s(ButtonContainer)`
 `
 
 ButtonContainer.propTypes = {
-	children: PropsType.node,
-	className: PropsType.string,
+	children: PropsType.node.isRequired,
+	className: PropsType.string.isRequired,
 }

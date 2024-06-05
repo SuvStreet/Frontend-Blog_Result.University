@@ -7,6 +7,6 @@ export const PrivateContent = ({ children, serverError = null }) => {
 }
 
 PrivateContent.propTypes = {
-	children: PropsType.node,
-	serverError: PropsType.string,
+	children: PropsType.node.isRequired,
+	serverError: PropsType.oneOfType([PropsType.string, PropsType.exact(null)]),
 }

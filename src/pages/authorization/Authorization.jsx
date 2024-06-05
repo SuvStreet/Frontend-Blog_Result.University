@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -60,7 +60,7 @@ const AuthorizationContainer = ({ className }) => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		if(localStorage.getItem('currentUserData')) {
+		if (localStorage.getItem('currentUserData')) {
 			navigate('/')
 		}
 	}, [navigate])
@@ -120,5 +120,5 @@ export const Authorization = s(AuthorizationContainer)`
 `
 
 AuthorizationContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

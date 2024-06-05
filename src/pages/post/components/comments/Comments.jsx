@@ -9,10 +9,10 @@ import { Comment } from './components'
 import { useServerRequest } from '../../../../hooks'
 import { addCommentAsync } from '../../../../actions'
 import { checkAccess } from '../../../../utils'
+import { PROP_TYPES, ROLE } from '../../../../constants'
 
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons'
 import s from 'styled-components'
-import { ROLE } from '../../../../constants'
 
 const CommentsContainer = ({ className, comments, postId }) => {
 	const [newComment, setNewComment] = useState('')
@@ -110,7 +110,7 @@ export const Comments = s(CommentsContainer)`
 `
 
 CommentsContainer.propTypes = {
-	className: PropTypes.string,
-	comments: PropTypes.array,
+	className: PropTypes.string.isRequired,
+	comments: PropTypes.arrayOf(PROP_TYPES.COMMENTS).isRequired,
 	postId: PropTypes.string,
 }

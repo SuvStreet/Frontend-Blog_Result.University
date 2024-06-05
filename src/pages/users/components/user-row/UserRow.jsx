@@ -1,10 +1,10 @@
+import PropsType from 'prop-types'
 import { useState } from 'react'
 
 import { Icon } from '../../../../components'
 import { TableRow } from '../table-row/TableRow'
 import { useServerRequest } from '../../../../hooks'
-
-import PropsType from 'prop-types'
+import { ROLE } from '../../../../constants'
 
 import { faFloppyDisk, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import s from 'styled-components'
@@ -29,7 +29,7 @@ const UserRowContainer = ({
 	const isSaveButtonDisabled = selectedRoleId === initialRoleId
 
 	const onRoleSave = (userId, newUserRoleId) => {
-		if(isSaveButtonDisabled) return
+		if (isSaveButtonDisabled) return
 		requestServer('updateUserRole', userId, newUserRoleId).then(() => {
 			setInitialRoleId(newUserRoleId)
 		})
@@ -70,7 +70,6 @@ const UserRowContainer = ({
 export const UserRow = s(UserRowContainer)`
 	display: flex;
 	align-items: center;
-	// padding: 5px;
 	margin-top: 10px;
 	font-size: 1.2rem;
 
@@ -78,7 +77,6 @@ export const UserRow = s(UserRowContainer)`
 		font-size: 1.2rem;
 		margin-right: 5px;
 		background-color: transparent;
-		// border: none;
 		border-radius: 5px;
 		padding: 0 0 0 5px;
 		color: #fff;
@@ -97,11 +95,16 @@ export const UserRow = s(UserRowContainer)`
 `
 
 UserRowContainer.propTypes = {
-	className: PropsType.string,
-	id: PropsType.string,
-	login: PropsType.string,
-	registeredAt: PropsType.string,
-	roleId: PropsType.number,
-	roles: PropsType.array,
-	onUserRemove: PropsType.func,
+	className: PropsType.string.isRequired,
+	id: PropsType.string.isRequired,
+	login: PropsType.string.isRequired,
+	registeredAt: PropsType.string.isRequired,
+	roleId: PropsType.number.isRequired,
+	roles: PropsType.arrayOf(
+		PropsType.shape({
+			id: PropsType.oneOf(Object.values(ROLE)),
+			name: PropsType.string.isRequired,
+		}),
+	).isRequired,
+	onUserRemove: PropsType.func.isRequired,
 }

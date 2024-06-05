@@ -1,12 +1,12 @@
+import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { server } from '../../bff'
+import { useServerRequest } from '../../hooks'
 import { setUser } from '../../actions'
 import { AuthFormError, Button, H2, Input } from '../../components'
 
@@ -37,6 +37,7 @@ const regFormSchema = yup.object().shape({
 
 const RegistrationContainer = ({ className }) => {
 	const navigate = useNavigate()
+	const requestServer = useServerRequest()
 
 	const {
 		register,
@@ -56,13 +57,13 @@ const RegistrationContainer = ({ className }) => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		if(localStorage.getItem('currentUserData')) {
+		if (localStorage.getItem('currentUserData')) {
 			navigate('/')
 		}
 	}, [navigate])
 
 	const onSubmit = ({ login, password }) => {
-		server.register(login, password).then(({ error, res }) => {
+		requestServer('register', login, password).then(({ error, res }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`)
 				return
@@ -121,5 +122,5 @@ export const Registration = s(RegistrationContainer)`
 `
 
 RegistrationContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

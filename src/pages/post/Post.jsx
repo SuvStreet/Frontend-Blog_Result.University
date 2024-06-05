@@ -1,8 +1,7 @@
+import PropTypes from 'prop-types'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-
-import PropTypes from 'prop-types'
 
 import { useServerRequest } from '../../hooks'
 import { loadPostAsync, REMOVE_POST } from '../../actions'
@@ -73,20 +72,8 @@ export const Post = s(PostContainer)`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-
-	// & .error {
-	// 	display: flex;
-	// 	flex-direction: column;
-	// }
-
-	// & .error-message {
-	// 	font-size: 20px;
-	// 	font-weight: bold;
-	// 	text-align: center;
-	// 	margin-top: 20px;
-	// }
 `
 
 PostContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

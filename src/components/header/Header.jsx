@@ -45,5 +45,5 @@ export const Header = s(HeaderContainer)`
 `
 
 HeaderContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

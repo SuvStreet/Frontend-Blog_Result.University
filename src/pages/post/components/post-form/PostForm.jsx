@@ -1,8 +1,7 @@
+import PropTypes from 'prop-types'
 import { useLayoutEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
-import PropTypes from 'prop-types'
 
 import { PrivateContent, H2, Icon, Input } from '../../../../components'
 import { SpecialPanel } from '../special-panel/SpecialPanel'
@@ -10,7 +9,7 @@ import { sanitizeContent } from './utils'
 import { useServerRequest } from '../../../../hooks'
 import { savePostAsync } from '../../../../actions'
 import { selectUserRole } from '../../../../selectors'
-import { ERROR, ROLE } from '../../../../constants'
+import { ERROR, PROP_TYPES, ROLE } from '../../../../constants'
 
 import { faFloppyDisk } from '@fortawesome/free-regular-svg-icons'
 import s from 'styled-components'
@@ -131,6 +130,6 @@ export const PostForm = s(PostFormContainer)`
 `
 
 PostFormContainer.propTypes = {
-	className: PropTypes.string,
-	post: PropTypes.object,
+	className: PropTypes.string.isRequired,
+	post: PROP_TYPES.POST.isRequired,
 }

@@ -88,5 +88,5 @@ export const ControlPanel = s(ControlPanelContainer)`
 `
 
 ControlPanelContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

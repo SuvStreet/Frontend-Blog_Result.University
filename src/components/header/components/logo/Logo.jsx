@@ -20,7 +20,7 @@ const SmallText = s.div`
 
 const LogoContainer = ({ className }) => {
 	return (
-		<Link to='/' className={className} >
+		<Link to='/' className={className}>
 			<Icon fontSize='4rem' margin='0 10px 0 0' iconCode={faLaptopCode} />
 			<div>
 				<LargeText>Блог</LargeText>
@@ -36,5 +36,5 @@ export const Logo = s(LogoContainer)`
 `
 
 LogoContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

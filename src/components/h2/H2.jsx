@@ -9,7 +9,8 @@ const H2Container = ({ children, className }) => {
 export const H2 = s(H2Container)`
 	margin-bottom: 40px;
 `
+
 H2Container.propTypes = {
-	children: PropsType.node,
-	className: PropsType.string,
+	className: PropsType.string.isRequired,
+	children: PropsType.node.isRequired,
 }

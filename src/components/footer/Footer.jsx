@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
 
 import s from 'styled-components'
 
@@ -55,5 +55,5 @@ export const Footer = s(FooterContainer)`
 `
 
 FooterContainer.propTypes = {
-	className: PropTypes.string,
+	className: PropTypes.string.isRequired,
 }

@@ -102,10 +102,9 @@ export const Comment = s(CommentContainer)`
 	}
 `
 
-CommentContainer.propTypes = {
-	className: PropsTypes.string,
-	commentId: PropsTypes.number,
-	author: PropsTypes.string,
-	content: PropsTypes.string,
-	publishedAt: PropsTypes.string,
+Comment.propTypes = {
+	commentId: PropsTypes.number.isRequired,
+	author: PropsTypes.string.isRequired,
+	content: PropsTypes.string.isRequired,
+	publishedAt: PropsTypes.string.isRequired,
 }

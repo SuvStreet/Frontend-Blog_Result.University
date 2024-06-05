@@ -84,7 +84,10 @@ export const SpecialPanel = s(SpecialPanelContainer)`
 `
 
 SpecialPanelContainer.propTypes = {
-	className: PropTypes.string,
-	post: PropTypes.object,
-	editButton: PropTypes.node,
+	className: PropTypes.string.isRequired,
+	post: PropTypes.shape({
+		id: PropTypes.string.isRequired,
+		publishedAt: PropTypes.string.isRequired,
+	}),
+	editButton: PropTypes.node.isRequired,
 }

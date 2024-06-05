@@ -21,6 +21,6 @@ export const Icon = s(IconContainer)`
 `
 
 IconContainer.propTypes = {
-	className: PropTypes.string,
-	iconCode: PropTypes.object,
+	className: PropTypes.string.isRequired,
+	iconCode: PropTypes.object.isRequired,
 }

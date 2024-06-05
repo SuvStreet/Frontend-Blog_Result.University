@@ -16,7 +16,7 @@ export const Img = s(ImgContainer)`
 `
 
 ImgContainer.propTypes = {
-	className: PropTypes.string,
-	src: PropTypes.string,
+	className: PropTypes.string.isRequired,
+	src: PropTypes.string.isRequired,
 	alt: PropTypes.string,
 }

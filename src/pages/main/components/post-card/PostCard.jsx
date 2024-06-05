@@ -18,30 +18,30 @@ const PostCardContainer = ({
 	return (
 		<div className={className}>
 			<Link to={`/post/${id}`}>
-			<Img src={imgUrl} alt={title} />
-			<div className='card-footer'>
-				<h4>{title}</h4>
-				<div className='card-footer__info'>
-					<div className='card-footer__info-date'>
-						<Icon
-							fontSize='1.2rem'
-							iconCode={faCalendarDays}
-							margin='0 10px 0 0'
-							cursor='default'
-						/>
-						<span>{publishedAt}</span>
-					</div>
-					<div className='card-footer__info-comments-count'>
-						<Icon
-							fontSize='1.2rem'
-							iconCode={faComments}
-							margin='0 10px 0 0'
-							cursor='default'
-						/>
-						<span>{commentsCount}</span>
+				<Img src={imgUrl} alt={title} />
+				<div className='card-footer'>
+					<h4>{title}</h4>
+					<div className='card-footer__info'>
+						<div className='card-footer__info-date'>
+							<Icon
+								fontSize='1.2rem'
+								iconCode={faCalendarDays}
+								margin='0 10px 0 0'
+								cursor='default'
+							/>
+							<span>{publishedAt}</span>
+						</div>
+						<div className='card-footer__info-comments-count'>
+							<Icon
+								fontSize='1.2rem'
+								iconCode={faComments}
+								margin='0 10px 0 0'
+								cursor='default'
+							/>
+							<span>{commentsCount}</span>
+						</div>
 					</div>
 				</div>
-			</div>
 			</Link>
 		</div>
 	)
@@ -86,10 +86,10 @@ export const PostCard = s(PostCardContainer)`
 `
 
 PostCardContainer.propTypes = {
-	className: PropTypes.string,
-	id: PropTypes.string,
-	title: PropTypes.string,
-	imgUrl: PropTypes.string,
-	publishedAt: PropTypes.string,
-	commentsCount: PropTypes.number,
+	className: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	imgUrl: PropTypes.string.isRequired,
+	publishedAt: PropTypes.string.isRequired,
+	commentsCount: PropTypes.number.isRequired,
 }

@@ -45,7 +45,7 @@ export const Search = s(SearchContainer)`
 `
 
 SearchContainer.propTypes = {
-	className: PropTypes.string,
-	onChange: PropTypes.func,
-	searchPhrase: PropTypes.string,
+	className: PropTypes.string.isRequired,
+	onChange: PropTypes.func.isRequired,
+	searchPhrase: PropTypes.string.isRequired,
 }

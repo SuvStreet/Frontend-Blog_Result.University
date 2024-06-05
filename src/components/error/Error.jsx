@@ -110,8 +110,8 @@ export const Error = s(ErrorContainer)`
 `
 
 ErrorContainer.propTypes = {
-	className: PropsType.string,
-	error: PropsType.string,
+	className: PropsType.string.isRequired,
+	error: PropsType.oneOfType([PropsType.string, PropsType.exact(null)]),
 	spin: PropsType.bool,
 	noAccess: PropsType.bool,
 	noDataSearch: PropsType.bool,
