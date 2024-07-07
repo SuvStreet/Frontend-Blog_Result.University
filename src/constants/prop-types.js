@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 
 export const PROP_TYPES = {
 	COMMENTS: PropTypes.shape({
-		id: PropTypes.number.isRequired,
+		id: PropTypes.string.isRequired,
 		author: PropTypes.string.isRequired,
-		postId: PropTypes.string.isRequired,
+		postId: PropTypes.string,
 		content: PropTypes.string.isRequired,
 		publishedAt: PropTypes.string.isRequired,
 	}),

@@ -1,6 +1,7 @@
+import { request } from '../utils'
 import { removeComment } from './remove-comment'
 
-export const removeCommentAsync = (requestServer, commentId) => (dispatch) =>
-	requestServer('removePostComment', commentId).then((removedIdComment) => {
-		dispatch(removeComment(removedIdComment.res))
+export const removeCommentAsync = (postId, commentId) => (dispatch) =>
+	request(`/api/posts/${postId}/comments/${commentId}`, 'DELETE').then(() => {
+		dispatch(removeComment(commentId))
 	})

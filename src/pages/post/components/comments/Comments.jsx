@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import PropTypes from 'prop-types'
 
-import { selectUserId, selectUserLogin, selectUserRole } from '../../../../selectors'
+import { selectUserRole } from '../../../../selectors'
 import { Icon } from '../../../../components'
 import { Comment } from './components'
-import { useServerRequest } from '../../../../hooks'
 import { addCommentAsync } from '../../../../actions'
 import { checkAccess } from '../../../../utils'
 import { PROP_TYPES, ROLE } from '../../../../constants'
@@ -16,19 +15,16 @@ import s from 'styled-components'
 
 const CommentsContainer = ({ className, comments, postId }) => {
 	const [newComment, setNewComment] = useState('')
-	const requestServer = useServerRequest()
 	const userRole = useSelector(selectUserRole)
-	const userId = useSelector(selectUserId)
-	const userLogin = useSelector(selectUserLogin)
 	const dispatch = useDispatch()
 
-	const onNewCommentAdd = (userId, userLogin, postId, content) => {
+	const onNewCommentAdd = (postId, content) => {
 		if (!checkAccess([ROLE.ADMIN, ROLE.MODERATOR, ROLE.READER], userRole)) {
 			return
 		}
 
 		if (newComment === '') return
-		dispatch(addCommentAsync(requestServer, userId, userLogin, postId, content))
+		dispatch(addCommentAsync(postId, content))
 		setNewComment('')
 	}
 
@@ -48,7 +44,7 @@ const CommentsContainer = ({ className, comments, postId }) => {
 						fontSize='1.3rem'
 						iconCode={faPaperPlane}
 						margin='0 0 0 20px'
-						onClick={() => onNewCommentAdd(userId, userLogin, postId, newComment)}
+						onClick={() => onNewCommentAdd(postId, newComment)}
 					/>
 				</div>
 			)}
@@ -65,6 +61,7 @@ const CommentsContainer = ({ className, comments, postId }) => {
 							commentId={id}
 							author={author}
 							content={content}
+							postId={postId}
 							publishedAt={publishedAt}
 						/>
 					))
@@ -80,7 +77,7 @@ export const Comments = s(CommentsContainer)`
 
 	& .new-comment {
 		display: flex;
-		margin: 20px 0 0 0;
+		margin: 20px 0;
 	}
 
 	& .comments {
@@ -111,6 +108,6 @@ export const Comments = s(CommentsContainer)`
 
 CommentsContainer.propTypes = {
 	className: PropTypes.string.isRequired,
-	comments: PropTypes.arrayOf(PROP_TYPES.COMMENTS).isRequired,
+	comments: PropTypes.arrayOf(PROP_TYPES.COMMENTS),
 	postId: PropTypes.string,
 }

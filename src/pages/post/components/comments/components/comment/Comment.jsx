@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropsTypes from 'prop-types'
 
 import { CLOSE_MODAL, openModal, removeCommentAsync } from '../../../../../../actions'
-import { useServerRequest } from '../../../../../../hooks'
 import { Icon } from '../../../../../../components'
 import { checkAccess } from '../../../../../../utils'
 import { ROLE } from '../../../../../../constants'
@@ -13,17 +12,23 @@ import { faCircleUser } from '@fortawesome/free-regular-svg-icons'
 import { faCalendarDays, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
 
-const CommentContainer = ({ className, commentId, author, content, publishedAt }) => {
+const CommentContainer = ({
+	className,
+	commentId,
+	author,
+	content,
+	publishedAt,
+	postId,
+}) => {
 	const userRole = useSelector(selectUserRole)
 	const dispatch = useDispatch()
-	const requestServer = useServerRequest()
 
 	const onCommentRemove = () => {
 		dispatch(
 			openModal({
 				textModal: 'Вы действительно хотите удалить комментарий?',
 				onConfirm: () => {
-					dispatch(removeCommentAsync(requestServer, commentId))
+					dispatch(removeCommentAsync(postId, commentId))
 					dispatch(CLOSE_MODAL)
 				},
 				onCancel: () => dispatch(CLOSE_MODAL),
@@ -102,9 +107,11 @@ export const Comment = s(CommentContainer)`
 	}
 `
 
-Comment.propTypes = {
-	commentId: PropsTypes.number.isRequired,
+CommentContainer.propTypes = {
+	className: PropsTypes.string.isRequired,
+	commentId: PropsTypes.string.isRequired,
 	author: PropsTypes.string.isRequired,
 	content: PropsTypes.string.isRequired,
 	publishedAt: PropsTypes.string.isRequired,
+	postId: PropsTypes.string.isRequired,
 }

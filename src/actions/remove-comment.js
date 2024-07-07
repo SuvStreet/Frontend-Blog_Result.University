@@ -1,6 +1,6 @@
 import { ACTION_TYPE } from './action-type'
 
-export const removeComment = (removedIdComment) => ({
+export const removeComment = (commentId) => ({
 	type: ACTION_TYPE.DELETE_COMMENT,
-	payload: removedIdComment,
+	payload: commentId,
 })

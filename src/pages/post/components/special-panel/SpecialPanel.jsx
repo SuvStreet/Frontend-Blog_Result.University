@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../actions'
 import { Icon } from '../../../../components'
-import { useServerRequest } from '../../../../hooks'
 import { selectUserRole } from '../../../../selectors'
 import { ROLE } from '../../../../constants'
 import { checkAccess } from '../../../../utils'
@@ -17,7 +16,6 @@ const SpecialPanelContainer = ({ className, post: { id, publishedAt }, editButto
 	const dispatch = useDispatch()
 	const userRole = useSelector(selectUserRole)
 	const navigate = useNavigate()
-	const requestServer = useServerRequest()
 
 	const onPostRemove = () => {
 		if (userRole !== ROLE.ADMIN) return
@@ -25,7 +23,7 @@ const SpecialPanelContainer = ({ className, post: { id, publishedAt }, editButto
 			openModal({
 				textModal: 'Вы действительно хотите удалить статью?',
 				onConfirm: () => {
-					dispatch(removePostAsync(requestServer, id)).then(() => navigate('/'))
+					dispatch(removePostAsync(id)).then(() => navigate('/'))
 					dispatch(CLOSE_MODAL)
 				},
 				onCancel: () => dispatch(CLOSE_MODAL),

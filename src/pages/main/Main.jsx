@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import { useEffect, useMemo, useState } from 'react'
 
-import { useServerRequest } from '../../hooks'
 import { PostCard, Pagination, Search } from './components'
 import { Error, Loader } from '../../components'
 import { ERROR, PAGINATION_LIMIT } from '../../constants'
 import { debounce } from './components/utils'
+import { request } from '../../utils'
 
 import s from 'styled-components'
 
@@ -16,22 +16,17 @@ const MainContainer = ({ className }) => {
 	const [lastPage, setLastPage] = useState(1)
 	const [shouldSearch, setShouldSearch] = useState(false)
 	const [searchPhrase, setSearchPhrase] = useState('')
-	const requestServer = useServerRequest()
 
 	useEffect(() => {
-		requestServer('fetchPosts', searchPhrase, page, PAGINATION_LIMIT)
-			.then(({ error, res: { posts, lastPage } }) => {
-				if (error) {
-					return
-				}
-
-				setPosts(posts)
+		request(`/api/posts?search=${searchPhrase}&_page=${page}&_limit=${PAGINATION_LIMIT}`)
+			.then(({ data: { post, lastPage } }) => {
+				setPosts(post)
 				setLastPage(lastPage)
 			})
 			.finally(() => {
 				setLoading(false)
 			})
-	}, [requestServer, page, shouldSearch])
+	}, [page, shouldSearch])
 
 	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 2000), [])
 
@@ -49,14 +44,14 @@ const MainContainer = ({ className }) => {
 				<>
 					{posts.length ? (
 						<div className='posts-list'>
-							{posts.map(({ id, title, imgUrl, publishedAt, commentsCount }) => (
+							{posts.map(({ id, title, imgUrl, publishedAt, comments }) => (
 								<PostCard
 									key={id}
 									id={id}
 									title={title}
 									imgUrl={imgUrl}
 									publishedAt={publishedAt}
-									commentsCount={commentsCount}
+									comments={comments.length}
 								/>
 							))}
 						</div>

@@ -3,9 +3,8 @@ import { useEffect, useLayoutEffect, useState } from 'react'
 import { useMatch, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useServerRequest } from '../../hooks'
 import { loadPostAsync, REMOVE_POST } from '../../actions'
-import { selectPost, selectUserSession } from '../../selectors'
+import { selectPost } from '../../selectors'
 import { PostContent, Comments, PostForm } from './components'
 import { Error, Loader } from '../../components'
 
@@ -18,30 +17,28 @@ const PostContainer = ({ className }) => {
 	const { id } = useParams()
 	const isEditing = !!useMatch('/post/:id/edit')
 	const isCreating = !!useMatch('/post')
-	const requestServer = useServerRequest()
 	const post = useSelector(selectPost)
-	const session = useSelector(selectUserSession)
 
 	useLayoutEffect(() => {
 		dispatch(REMOVE_POST)
 	}, [dispatch, isCreating])
 
 	useEffect(() => {
+		setIsLoading(true)
+
 		if (isCreating) {
+			setIsLoading(false)
 			return
 		}
 
-		if ((!post.id && !session) || (!isCreating && !post.id)) {
-			setIsLoading(true)
-			dispatch(loadPostAsync(requestServer, id))
-				.then((postData) => {
-					if (postData.error) {
-						setError(postData.error)
-					}
-				})
-				.finally(() => setIsLoading(false))
-		}
-	}, [id, requestServer, dispatch, isCreating, session, post.id])
+		dispatch(loadPostAsync(id))
+			.then((postData) => {
+				if (postData.error) {
+					setError(postData.error)
+				}
+			})
+			.finally(() => setIsLoading(false))
+	}, [id, dispatch, isCreating])
 
 	return (
 		<div className={className}>

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import { PrivateContent, H2, Icon, Input } from '../../../../components'
 import { SpecialPanel } from '../special-panel/SpecialPanel'
 import { sanitizeContent } from './utils'
-import { useServerRequest } from '../../../../hooks'
 import { savePostAsync } from '../../../../actions'
 import { selectUserRole } from '../../../../selectors'
 import { ERROR, PROP_TYPES, ROLE } from '../../../../constants'
@@ -23,7 +22,6 @@ const PostFormContainer = ({
 	const [errorMessage, setErrorMessage] = useState(null)
 	const [contentRefIsEmpty, setContentRefIsEmpty] = useState(true)
 	const contentRef = useRef(null)
-	const requestServer = useServerRequest()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const userRole = useSelector(selectUserRole)
@@ -36,10 +34,13 @@ const PostFormContainer = ({
 
 		setImgUrlValue(imgUrl)
 		setTitleValue(title)
-	}, [title, imgUrl, userRole])
 
-	const onInputContentRefChange = ({ target: { innerText } }) =>
+		onInputContentRefChange({ target: { innerText: content } })
+	}, [title, imgUrl, userRole, content])
+
+	const onInputContentRefChange = ({ target: { innerText } }) => {
 		innerText === '' ? setContentRefIsEmpty(true) : setContentRefIsEmpty(false)
+	}
 
 	const onSave = () => {
 		const newContent = sanitizeContent(contentRef.current.innerHTML)
@@ -54,8 +55,7 @@ const PostFormContainer = ({
 		}
 
 		dispatch(
-			savePostAsync(requestServer, {
-				id,
+			savePostAsync(id, {
 				imgUrl: imgUrlValue,
 				title: titleValue,
 				content: newContent,
@@ -103,6 +103,8 @@ const PostFormContainer = ({
 }
 
 export const PostForm = s(PostFormContainer)`
+	width: 750px;
+
 	& .post-text {
 		font-size: 20px;
 		white-space: pre-wrap;
@@ -110,6 +112,7 @@ export const PostForm = s(PostFormContainer)`
 		border-radius: 10px;
 		padding: 10px;
 		position: relative;
+		max-width: 100%;
 	}
 
 	& .post-text.empty::before {

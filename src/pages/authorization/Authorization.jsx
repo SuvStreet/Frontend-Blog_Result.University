@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useServerRequest } from '../../hooks'
 import { setUser } from '../../actions'
 import { AuthFormError, Button, H2, Input } from '../../components'
 
 import s from 'styled-components'
+import { request } from '../../utils'
 
 const authFormSchema = yup.object().shape({
 	login: yup
@@ -41,7 +41,6 @@ const StyledLink = s(Link)`
 
 const AuthorizationContainer = ({ className }) => {
 	const navigate = useNavigate()
-	const requestServer = useServerRequest()
 
 	const {
 		register,
@@ -66,14 +65,14 @@ const AuthorizationContainer = ({ className }) => {
 	}, [navigate])
 
 	const onSubmit = ({ login, password }) => {
-		requestServer('authorize', login, password).then(({ error, res }) => {
+		request('/api/login', 'POST', { login, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`)
 				return
 			}
 
-			dispatch(setUser(res))
-			localStorage.setItem('currentUserData', JSON.stringify(res.session))
+			dispatch(setUser(user))
+			localStorage.setItem('currentUserData', JSON.stringify(user))
 			navigate('/')
 		})
 	}

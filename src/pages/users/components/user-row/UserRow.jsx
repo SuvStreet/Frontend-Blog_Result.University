@@ -3,8 +3,8 @@ import { useState } from 'react'
 
 import { Icon } from '../../../../components'
 import { TableRow } from '../table-row/TableRow'
-import { useServerRequest } from '../../../../hooks'
 import { ROLE } from '../../../../constants'
+import { request } from '../../../../utils'
 
 import { faFloppyDisk, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import s from 'styled-components'
@@ -20,7 +20,6 @@ const UserRowContainer = ({
 }) => {
 	const [initialRoleId, setInitialRoleId] = useState(userRoleId)
 	const [selectedRoleId, setSelectedRoleId] = useState(userRoleId)
-	const requestServer = useServerRequest()
 
 	const onRoleChange = ({ target }) => {
 		setSelectedRoleId(Number(target.value))
@@ -30,7 +29,7 @@ const UserRowContainer = ({
 
 	const onRoleSave = (userId, newUserRoleId) => {
 		if (isSaveButtonDisabled) return
-		requestServer('updateUserRole', userId, newUserRoleId).then(() => {
+		request(`/api/users/${userId}`, 'PATCH', { roleId: newUserRoleId }).then(() => {
 			setInitialRoleId(newUserRoleId)
 		})
 	}

@@ -7,14 +7,7 @@ import { Icon, Img } from '../../../../components'
 import { faCalendarDays, faComments } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
 
-const PostCardContainer = ({
-	className,
-	id,
-	title,
-	imgUrl,
-	publishedAt,
-	commentsCount,
-}) => {
+const PostCardContainer = ({ className, id, title, imgUrl, publishedAt, comments }) => {
 	return (
 		<div className={className}>
 			<Link to={`/post/${id}`}>
@@ -38,7 +31,7 @@ const PostCardContainer = ({
 								margin='0 10px 0 0'
 								cursor='default'
 							/>
-							<span>{commentsCount}</span>
+							<span>{comments}</span>
 						</div>
 					</div>
 				</div>
@@ -91,5 +84,5 @@ PostCardContainer.propTypes = {
 	title: PropTypes.string.isRequired,
 	imgUrl: PropTypes.string.isRequired,
 	publishedAt: PropTypes.string.isRequired,
-	commentsCount: PropTypes.number.isRequired,
+	comments: PropTypes.number.isRequired,
 }

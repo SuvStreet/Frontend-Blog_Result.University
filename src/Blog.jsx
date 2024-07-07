@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Header, Footer, Loader, Modal, Error } from './components'
 import { Authorization, Registration, Users, Post, Main } from './pages'
-import { useServerRequest } from './hooks'
-import { setLoading, setUser } from './actions'
-import { selectLoading, selectUserSession } from './selectors'
+import { setUser } from './actions'
+import { selectLoading } from './selectors'
 import { ERROR } from './constants'
 
 import s from 'styled-components'
@@ -34,22 +33,14 @@ const Page = s.div`
 
 export const Blog = () => {
 	const dispatch = useDispatch()
-	const session = useSelector(selectUserSession)
 	const isLoading = useSelector(selectLoading)
-	const requestServer = useServerRequest()
 
 	useLayoutEffect(() => {
 		const currentUserData = localStorage.getItem('currentUserData')
-
-		if (currentUserData && !session) {
-			dispatch(setLoading(true))
-			requestServer('fetchUser', JSON.parse(currentUserData))
-				.then(({ res }) => {
-					dispatch(setUser(res))
-				})
-				.finally(() => dispatch(setLoading(false)))
+		if (currentUserData) {
+			dispatch(setUser(JSON.parse(currentUserData)))
 		}
-	}, [dispatch, requestServer, session])
+	}, [dispatch])
 
 	return isLoading ? (
 		<Loader height={'100dvh'} />

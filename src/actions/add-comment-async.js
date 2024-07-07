@@ -1,10 +1,8 @@
-import { setNewComment } from './set-new-comment'
+import { request } from '../utils'
+import { addComment } from './add-comment'
 
-export const addCommentAsync =
-	(requestServer, userId, userLogin, postId, content) => (dispatch) => {
-		requestServer('addPostComment', userId, userLogin, postId, content).then(
-			(savedComment) => {
-				dispatch(setNewComment(savedComment.res))
-			},
-		)
-	}
+export const addCommentAsync = (postId, content) => (dispatch) => {
+	request(`/api/posts/${postId}/comments`, 'POST', { content }).then((comment) => {
+		dispatch(addComment(comment.data))
+	})
+}

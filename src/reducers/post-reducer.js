@@ -17,7 +17,7 @@ export const postReducer = (state = initialPostState, action) => {
 				...action.payload,
 			}
 
-		case ACTION_TYPE.SET_NEW_COMMENT:
+		case ACTION_TYPE.ADD_COMMENT:
 			return {
 				...state,
 				comments: [...state.comments, action.payload],

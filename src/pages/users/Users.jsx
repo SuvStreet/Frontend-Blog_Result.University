@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react'
 
 import { H2, PrivateContent, Loader } from '../../components'
 import { UserRow, TableRow } from './components'
-import { useServerRequest } from '../../hooks'
 import { ROLE } from '../../constants'
 
 import s from 'styled-components'
+import { request } from '../../utils'
 
 const UsersContainer = ({ className }) => {
 	const [users, setUsers] = useState([])
@@ -15,26 +15,24 @@ const UsersContainer = ({ className }) => {
 	const [errorMessage, setErrorMessage] = useState(null)
 	const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false)
 
-	const requestServer = useServerRequest()
-
 	useEffect(() => {
-		Promise.all([requestServer('fetchUsers'), requestServer('fetchRoles')])
+		Promise.all([request('/api/users'), request('/api/users/roles')])
 			.then(([usersRes, roleRes]) => {
 				if (usersRes.error || roleRes.error) {
 					setErrorMessage(usersRes.error || roleRes.error)
 					return
 				}
 
-				setUsers(usersRes.res)
-				setRoles(roleRes.res)
+				setUsers(usersRes.data)
+				setRoles(roleRes.data)
 			})
 			.finally(() => {
 				setLoading(false)
 			})
-	}, [requestServer, shouldUpdateUserList])
+	}, [shouldUpdateUserList])
 
 	const onUserRemove = (userId) => {
-		requestServer('removeUser', userId).then(() => {
+		request(`/api/users/${userId}`, 'DELETE').then(() => {
 			setShouldUpdateUserList(!shouldUpdateUserList)
 		})
 	}
