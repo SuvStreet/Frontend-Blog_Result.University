@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { PostCard, Pagination, Search } from './components'
 import { Error, Loader } from '../../components'
-import { ERROR, PAGINATION_LIMIT } from '../../constants'
+import { ERROR, PAGINATION_LIMIT, URL } from '../../constants'
 import { debounce } from './components/utils'
 import { request } from '../../utils'
 
@@ -18,7 +18,9 @@ const MainContainer = ({ className }) => {
 	const [searchPhrase, setSearchPhrase] = useState('')
 
 	useEffect(() => {
-		request(`/api/posts?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}`)
+		request(
+			`${URL.API}posts?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}`,
+		)
 			.then(({ data: { post, lastPage } }) => {
 				setPosts(post)
 				setLastPage(lastPage)
