@@ -1,5 +1,4 @@
 export const request = (url, method = 'GET', data = null) => {
-	// console.log(url, method, data)
 	return fetch(url, {
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8',
