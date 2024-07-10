@@ -10,7 +10,7 @@ const FooterContainer = ({ className }) => {
 
 	useEffect(() => {
 		fetch(
-			'https://api.openweathermap.org/data/2.5/weather?q=Moscow&units=metric&lang=ru&appid=0313d885acda1a8b08d1a73694ed2803',
+			`https://api.openweathermap.org/data/2.5/weather?q=Moscow&units=metric&lang=ru&appid=${import.meta.env.VITE_OPEN_WEATHER_KEY}`,
 		)
 			.then((res) => res.json())
 			.then(({ name, main, weather }) => {

@@ -8,9 +8,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { setUser } from '../../actions'
 import { AuthFormError, Button, H2, Input } from '../../components'
+import { request } from '../../utils'
+import { URL } from '../../constants'
 
 import s from 'styled-components'
-import { request } from '../../utils'
 
 const regFormSchema = yup.object().shape({
 	login: yup
@@ -62,7 +63,7 @@ const RegistrationContainer = ({ className }) => {
 	}, [navigate])
 
 	const onSubmit = ({ login, password }) => {
-		request('api/register', 'POST', { login, password }).then(({ error, user }) => {
+		request(`${URL.API}register`, 'POST', { login, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`)
 				return

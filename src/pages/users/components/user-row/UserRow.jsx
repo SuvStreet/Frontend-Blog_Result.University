@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { Icon } from '../../../../components'
 import { TableRow } from '../table-row/TableRow'
-import { ROLE } from '../../../../constants'
+import { ROLE, URL } from '../../../../constants'
 import { request } from '../../../../utils'
 
 import { faFloppyDisk, faTrashCan } from '@fortawesome/free-regular-svg-icons'
@@ -29,7 +29,7 @@ const UserRowContainer = ({
 
 	const onRoleSave = (userId, newUserRoleId) => {
 		if (isSaveButtonDisabled) return
-		request(`/api/users/${userId}`, 'PATCH', { roleId: newUserRoleId }).then(() => {
+		request(`${URL.API}users/${userId}`, 'PATCH', { roleId: newUserRoleId }).then(() => {
 			setInitialRoleId(newUserRoleId)
 		})
 	}
